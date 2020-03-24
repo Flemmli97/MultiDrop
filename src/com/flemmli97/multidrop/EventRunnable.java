@@ -3,7 +3,6 @@ package com.flemmli97.multidrop;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
-//https://github.com/Flemmli97/MultiDrop
 public class EventRunnable extends BukkitRunnable {
 
 	@Override
