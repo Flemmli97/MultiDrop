@@ -19,14 +19,13 @@ public class CommandMultEvent implements CommandExecutor, TabCompleter {
 	public boolean onCommand(CommandSender sender, Command cmd, String al, String[] args) {
 		if(args.length > 0){
 			if(args[0].equals("get")){
-				DropEvent event = MultiDrop.inst.currentEvent();
-				String msg;
-				if(event == null){
-					msg = MultiDrop.getNone;
-				}else
-					msg = String.format(MultiDrop.getEvent, event.getEventMultiplier() + 1, event.secondsLeft());
-				if(sender instanceof Player)
-					((Player) sender).sendMessage(msg);
+				if(sender instanceof Player) {
+					DropEvent event = MultiDrop.inst.currentEvent();
+					if(event == null){
+						((Player) sender).sendMessage(MultiDrop.getNone);
+					}else
+						((Player) sender).sendMessage(String.format(MultiDrop.getEvent, event.getEventMultiplier() + 1, event.secondsLeft()));
+				}
 				return true;
 			}else if(sender.isOp() || sender.hasPermission("multidrop.event")){
 				if(args[0].equals("start") && args.length > 2){

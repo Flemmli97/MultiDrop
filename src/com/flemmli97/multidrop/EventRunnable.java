@@ -15,7 +15,6 @@ public class EventRunnable extends BukkitRunnable {
 		if(event.secondsLeft() <= 0){
 			event.trackedTask().cancel();
 			MultiDrop.inst.setEvent(null);
-			MultiDrop.inst.getServer().broadcastMessage(MultiDrop.endEvent);
 			MultiDrop.inst.getServer().getOnlinePlayers().forEach(player -> {
 				player.sendTitle(MultiDrop.endEvent, "", 10, 50, 20);
 				player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);

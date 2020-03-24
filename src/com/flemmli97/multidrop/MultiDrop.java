@@ -45,20 +45,7 @@ public class MultiDrop extends JavaPlugin {
 	public void onEnable() {
 		inst = this;
 		this.event = null;
-		this.reloadConfig();
-		this.config.getStringList("Drops").forEach(s -> {
-			String[] ss = s.split("-");
-			this.multMap.put(ss[0], Double.parseDouble(ss[1]));
-		});
-		startEvent = this.config.getString("event.start");
-		stopEvent = this.config.getString("event.stop");
-		runningEvent = this.config.getString("event.run");
-		getNone = this.config.getString("event.get.none");
-		getEvent = this.config.getString("event.get");
-		endEvent = this.config.getString("event.end");
-		timeEvent = this.config.getString("event.time.get");
-
-		this.saveDefaultConfig();
+		
 		this.getServer().getPluginManager().registerEvents(new BlockHandler(), this);
 		this.getCommand("multidrop").setExecutor(new CommandMultEvent());
 
@@ -83,6 +70,21 @@ public class MultiDrop extends JavaPlugin {
 			handl.load(world);
 			this.place.put(world.getName(), handl);
 		});
+		
+		this.reloadConfig();
+		this.config.getStringList("Drops").forEach(s -> {
+			String[] ss = s.split("-");
+			this.multMap.put(ss[0], Double.parseDouble(ss[1]));
+		});
+		startEvent = this.config.getString("event.start");
+		stopEvent = this.config.getString("event.stop");
+		runningEvent = this.config.getString("event.run");
+		getNone = this.config.getString("event.get.none");
+		getEvent = this.config.getString("event.get");
+		endEvent = this.config.getString("event.end");
+		timeEvent = this.config.getString("event.time.get");
+
+		this.saveDefaultConfig();
 	}
 
 	@Override
@@ -107,6 +109,7 @@ public class MultiDrop extends JavaPlugin {
 			PlayerPlaceHandler handl = this.place.get(world.getName());
 			handl.save(world);
 		});
+		
 	}
 
 	public PlayerPlaceHandler fromWorld(World world) {
