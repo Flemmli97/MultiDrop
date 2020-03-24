@@ -1,0 +1,14 @@
+Drops:
+- minecraft:coal_ore-2
+- minecraft:iron_ore-2
+- minecraft:gold_ore-2
+- minecraft:diamond_ore-2
+- minecraft:lapis_ore-2
+- minecraft:redstone_ore-2
+event.start: "§6%1$s started a %2$sx drop multiplier event for %3$s seconds"
+event.stop: "§4Drop multiplier event was stopped"
+event.run: "§4There is already an event running"
+event.get.none: "§4There is no event going on"
+event.get: "§6Drop multiplier event (x%1$s) running with %2$s seconds left";
+event.end: "§4Drop Multiplier ended"
+event.time.get: "§3Time left %1$s sec"

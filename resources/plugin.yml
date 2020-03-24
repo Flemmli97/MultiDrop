@@ -1,0 +1,8 @@
+name: MultiDrop
+main: com.flemmli97.multidrop.MultiDrop
+version: 1.0
+api-version: 1.14
+commands:
+ multidrop:
+  description: Start/Stop an drop multiplier event
+  usage: /multidrop start <multiplier> <time in sec> | stop | get

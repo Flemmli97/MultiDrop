@@ -1,0 +1,14 @@
+# eclipse
+bin
+.classpath
+.project
+.settings
+
+#vs
+.vscode
+
+# github
+.git
+
+# things
+.DS_Store
