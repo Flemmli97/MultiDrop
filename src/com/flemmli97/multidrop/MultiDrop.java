@@ -113,7 +113,10 @@ public class MultiDrop extends JavaPlugin {
 	}
 
 	public PlayerPlaceHandler fromWorld(World world) {
-		return this.place.get(world.getName());
+		PlayerPlaceHandler handl = this.place.get(world.getName());
+		if(handl == null)
+			log.log(Level.WARNING, "Nullpointer for " + world.getName() + " in map " + this.place);
+		return handl;
 	}
 
 	public boolean shouldModify(Block block) {

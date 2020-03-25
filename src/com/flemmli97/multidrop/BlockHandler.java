@@ -3,7 +3,6 @@ package com.flemmli97.multidrop;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.bukkit.World;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,9 +19,9 @@ public class BlockHandler implements Listener {
 
 	@EventHandler
 	public void onDrops(BlockDropItemEvent event) {
-		World world = event.getBlock().getWorld();
-		String brokenBlock = MultiDrop.inst.fromWorld(world).getBrokenBlock(event.getBlock().getLocation());
-		if(MultiDrop.inst.shouldModify(brokenBlock) && !MultiDrop.inst.fromWorld(event.getBlock().getWorld()).isPlayerPlaced(event.getBlock())){
+		PlayerPlaceHandler placeHandler = MultiDrop.inst.fromWorld(event.getBlock().getWorld());
+		String brokenBlock = placeHandler.getBrokenBlock(event.getBlock().getLocation());
+		if(MultiDrop.inst.shouldModify(brokenBlock) && !placeHandler.isPlayerPlaced(event.getBlock())){
 			Map<ItemStack, Integer> unique = Maps.newHashMap();
 			for(Item item : event.getItems()){
 				ItemStack stack = item.getItemStack();
@@ -34,9 +33,9 @@ public class BlockHandler implements Listener {
 				stack.setAmount((int) (entry.getValue() * MultiDrop.inst.getDropMultiplier(brokenBlock) * eventMult));
 				event.getPlayer().getWorld().dropItemNaturally(event.getBlock().getLocation(), stack);
 			}
-			MultiDrop.inst.fromWorld(world).finishBreakingBlock(event.getBlock());
+			placeHandler.finishBreakingBlock(event.getBlock());
 		}
-		MultiDrop.inst.fromWorld(world).removePlayerPlacedBlock(event.getBlock());
+		placeHandler.removePlayerPlacedBlock(event.getBlock());
 	}
 
 	@EventHandler
@@ -55,22 +54,22 @@ public class BlockHandler implements Listener {
 
 	@EventHandler
 	public void pistonExtend(BlockPistonExtendEvent event) {
-		World world = event.getBlock().getWorld();
+		PlayerPlaceHandler placeHandler = MultiDrop.inst.fromWorld(event.getBlock().getWorld());
 		event.getBlocks().forEach(block -> {
-			if(MultiDrop.inst.fromWorld(world).isPlayerPlaced(block)){
-				MultiDrop.inst.fromWorld(world).removePlayerPlacedBlock(block);
-				MultiDrop.inst.fromWorld(world).addPlayerPlacedBlock(block.getRelative(event.getDirection()));
+			if(placeHandler.isPlayerPlaced(block)){
+				placeHandler.removePlayerPlacedBlock(block);
+				placeHandler.addPlayerPlacedBlock(block.getRelative(event.getDirection()));
 			}
 		});
 	}
 
 	@EventHandler
 	public void pistonRetract(BlockPistonRetractEvent event) {
-		World world = event.getBlock().getWorld();
+		PlayerPlaceHandler placeHandler = MultiDrop.inst.fromWorld(event.getBlock().getWorld());
 		event.getBlocks().forEach(block -> {
-			if(MultiDrop.inst.fromWorld(world).isPlayerPlaced(block)){
-				MultiDrop.inst.fromWorld(world).removePlayerPlacedBlock(event.getBlock());
-				MultiDrop.inst.fromWorld(world).addPlayerPlacedBlock(block.getRelative(event.getDirection()));
+			if(placeHandler.isPlayerPlaced(block)){
+				placeHandler.removePlayerPlacedBlock(event.getBlock());
+				placeHandler.addPlayerPlacedBlock(block.getRelative(event.getDirection()));
 			}
 		});
 	}
