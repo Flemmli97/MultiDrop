@@ -61,7 +61,7 @@ public class MultiDrop extends JavaPlugin {
 			}
 			data.close();
 		}catch(IOException e){
-			log.log(Level.WARNING, "Error writing event data");
+			log.log(Level.WARNING, "Error reading event data");
 			e.printStackTrace();
 		}
 
@@ -102,7 +102,7 @@ public class MultiDrop extends JavaPlugin {
 				data.writeByte(0);
 			data.close();
 		}catch(IOException e){
-			log.log(Level.WARNING, "Error reading saved event data");
+			log.log(Level.WARNING, "Error writing saved event data");
 			e.printStackTrace();
 		}
 		this.getServer().getWorlds().forEach(world -> {
